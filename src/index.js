@@ -9,7 +9,7 @@ document.querySelector("h1").addEventListener("click", function (e) {
 
 // mouseover+
 // keydown+
-// wheel -
+// wheel +
 // load +
 // focus -
 // resize +
@@ -25,6 +25,13 @@ const colors = [
   "#08a4bdff",
   "#446df6ff",
 ];
+
+//onclick
+document.querySelectorAll(".btn").forEach((item) =>
+  item.addEventListener("click", (e) => {
+    e.target.style.color = "red";
+  })
+);
 
 // mouseover+
 document.querySelectorAll(".nav-link").forEach((item) => {
@@ -59,31 +66,27 @@ window.addEventListener("dblclick", (event) => {
   );
 });
 
-// wheel -
+// wheel+
 document.querySelector(".intro img").addEventListener("wheel", (e) => {
   e.target.style.transform = "scale(1.1)";
   e.target.style.transition = "0.9s";
-  if (e.target.style.transform === "scale(1.1)") {
-    removeEventListener("wheel", e);
-  }
 });
 
 // load +
-
-// window.addEventListener("load", () => {
-//   prompt("Siteye girmek için ok yaz");
-//   alert("Sayfa açıldı!");
-// });
+window.addEventListener("load", () => {
+  // prompt("Siteye girmek için ok yaz");
+  alert("Sayfa açıldı!");
+});
 
 // focus -
+document.querySelector("p").focus(); //önce focuslatmak gerekiyor. ancak input dışında focuslatılmıyor
 document.querySelectorAll("p").forEach((item) => {
   item.addEventListener("focus", (e) => {
     e.target.style.color = "green";
   });
-}, true);
+});
 
 // resize +
-
 function reportWindowSize() {
   console.log(window.innerHeight, window.innerWidth);
 }
@@ -91,7 +94,6 @@ function reportWindowSize() {
 window.addEventListener("resize", reportWindowSize);
 
 // scroll+
-
 window.addEventListener("scroll", (e) => {
   if (
     document.documentElement.scrollTop > 10 &&
@@ -105,19 +107,19 @@ window.addEventListener("scroll", (e) => {
   }
 });
 
-// select -
-
+// select + //buradaki select option select değilde mause ile yapılan select ile seçim yapıyor
 const text = document.querySelector("p");
-const sonuc = document.createElement("select");
-const option = document.createElement("option");
-sonuc.appendChild(option);
-text.appendChild(sonuc);
-document.querySelector("option").textContent = "Volvo";
+const selectInput = document.createElement("input");
+selectInput.value = "Buradan yazı karakteri seçebilirsin";
+text.appendChild(selectInput);
 
-window.addEventListener("select", (e) => {
-  const selectSonuc = document.createElement("div");
-  selectSonuc.textContent = e.target.textContent;
-  text.appendChild(selectSonuc);
+document.querySelector("input").addEventListener("select", (event) => {
+  const sonuc = document.createElement("div");
+  sonuc.textContent = event.target.value.substring(
+    event.target.selectionStart,
+    event.target.selectionEnd
+  );
+  text.appendChild(sonuc);
 });
 
 // drag / drop -
